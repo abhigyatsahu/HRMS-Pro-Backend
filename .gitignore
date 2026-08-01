@@ -1,0 +1,137 @@
+# ============================================================
+# HRMS Pro - Git Ignore
+# ============================================================
+
+
+# ------------------------------------------------------------
+# Environment / Secrets
+# ------------------------------------------------------------
+
+.env
+.env.*
+!.env.example
+
+*.env
+
+# Local secret/config files
+secrets.json
+credentials.json
+
+
+# ------------------------------------------------------------
+# Python
+# ------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+
+# ------------------------------------------------------------
+# Django
+# ------------------------------------------------------------
+
+# Logs
+logs/
+*.log
+
+# Local SQLite databases
+db.sqlite3
+db.sqlite3-journal
+
+# Django generated/runtime files
+staticfiles/
+media/
+
+# Local uploads
+uploads/
+
+
+# ------------------------------------------------------------
+# PostgreSQL / Database
+# ------------------------------------------------------------
+
+*.sql
+*.dump
+*.backup
+
+# Keep intentional database scripts if you later create them.
+# For example:
+# !backend/scripts/*.sql
+
+# ------------------------------------------------------------
+# Backend Environment
+# ------------------------------------------------------------
+
+backend/.env
+backend/.env.local
+backend/.env.development
+backend/.env.production
+
+!backend/.env.example
+
+
+# ------------------------------------------------------------
+# IDE - PyCharm / IntelliJ
+# ------------------------------------------------------------
+
+.idea/
+
+*.iml
+*.iws
+*.ipr
+
+
+# ------------------------------------------------------------
+# VS Code
+# ------------------------------------------------------------
+
+.vscode/
+
+# Uncomment if you intentionally want shared VS Code settings:
+# !.vscode/settings.json
+# !.vscode/extensions.json
+
+
+# ------------------------------------------------------------
+# Operating System
+# ------------------------------------------------------------
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+# ------------------------------------------------------------
+# Temporary files
+# ------------------------------------------------------------
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
