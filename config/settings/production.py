@@ -45,7 +45,7 @@ CORS_ALLOWED_ORIGINS = config(
     cast=lambda v: [origin.strip() for origin in v.split(",") if origin.strip()],
 )
 
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
 
 # =============================================================================
 # EMAIL
@@ -74,7 +74,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -90,11 +90,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # =============================================================================
 # STATIC FILES
 # =============================================================================
-
-MIDDLEWARE.insert(
-    1,
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-)
 
 STATICFILES_STORAGE = (
     "whitenoise.storage.CompressedManifestStaticFilesStorage"

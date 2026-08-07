@@ -15,6 +15,7 @@ logger = logging.getLogger("hrms.accounts")
 
 
 class LogoutView(APIView):
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     def post(self, request):
