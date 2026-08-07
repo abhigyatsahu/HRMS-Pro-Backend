@@ -135,3 +135,9 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
+
+# Ignore Django migration files
+**/migrations/*.py
+
+# Do NOT ignore the migration folder setup files
+!**/migrations/__init__.py

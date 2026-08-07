@@ -20,6 +20,7 @@ class CurrentUserSerializer(
             "first_name",
             "last_name",
             "full_name",
+            "role",
             "is_staff",
             "is_superuser",
         )
