@@ -25,6 +25,9 @@ class User(AbstractUser):
         unique=True,
     )
 
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+
     is_email_verified = models.BooleanField(
         default=False,
     )

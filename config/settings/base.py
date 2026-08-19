@@ -40,6 +40,7 @@ LOCAL_APPS = [
     "apps.attendance",
     "apps.auditlogs",
     "apps.authentication",
+    "apps.core",
     "apps.common",
     "apps.departments",
     "apps.designations",
@@ -137,8 +138,10 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
     ),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    "EXCEPTION_HANDLER": "apps.core.exceptions.handler.custom_exception_handler",
+    "DEFAULT_PAGINATION_CLASS": (
+        "apps.core.pagination.StandardPagination"
+    ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -146,13 +149,17 @@ REST_FRAMEWORK = {
 # Simple JWT Settings
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=2),
+
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
+
     "ALGORITHM": "HS256",
     "SIGNING_KEY": SECRET_KEY,
+
     "AUTH_HEADER_TYPES": ("Bearer",),
+
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
 }
@@ -186,12 +193,17 @@ JWT_COOKIE_HTTPONLY = True
 
 JWT_COOKIE_SAMESITE = "Lax"
 
-JWT_COOKIE_ACCESS_MAX_AGE = 15 * 60
+JWT_COOKIE_ACCESS_MAX_AGE = 60 * 60
 
-JWT_COOKIE_REFRESH_MAX_AGE = 7 * 24 * 60 * 60
+JWT_COOKIE_REFRESH_MAX_AGE = 2 * 60 * 60
 
 CSRF_COOKIE_NAME = "csrftoken"
 
 CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
 
 CSRF_COOKIE_HTTPONLY = False
+
+HRMS_PAGINATION = {
+    "DEFAULT_PAGE_SIZE": 10,
+    "MAX_PAGE_SIZE": 100,
+}
