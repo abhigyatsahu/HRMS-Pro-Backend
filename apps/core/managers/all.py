@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.querysets import SoftDeleteQuerySet
+from apps.core.querysets import SoftDeleteQuerySet
 
 
 class AllObjectsManager(

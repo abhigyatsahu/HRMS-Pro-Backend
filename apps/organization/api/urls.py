@@ -11,6 +11,14 @@ from .views.organization_list import (
     OrganizationListCreateView,
 )
 
+from .views.branch import (
+    BranchListCreateView,
+    BranchDetailView
+)
+from .views.branch_actions import (
+    BranchActivateView,
+    BranchDeactivateView
+)
 
 urlpatterns = [
     path(
@@ -35,5 +43,28 @@ urlpatterns = [
         "<uuid:uuid>/deactivate/",
         OrganizationDeactivateView.as_view(),
         name="organization-deactivate",
+    ),
+    path(
+        "branches/",
+        BranchListCreateView.as_view(),
+        name="branch-list-create",
+    ),
+
+    path(
+        "branches/<uuid:uuid>/",
+        BranchDetailView.as_view(),
+        name="branch-detail",
+    ),
+
+    path(
+        "branches/<uuid:uuid>/activate/",
+        BranchActivateView.as_view(),
+        name="branch-activate",
+    ),
+
+    path(
+        "branches/<uuid:uuid>/deactivate/",
+        BranchDeactivateView.as_view(),
+        name="branch-deactivate",
     ),
 ]

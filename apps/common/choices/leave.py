@@ -1,6 +1,6 @@
 from django.db import models
 
-class LeaveStatus(models.Model):
+class LeaveStatus(models.TextChoices):
 
     PENDING = "PENDING"
 

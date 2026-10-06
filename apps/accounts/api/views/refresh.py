@@ -5,6 +5,8 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import serializers
+from drf_spectacular.utils import extend_schema, inline_serializer
 
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -25,6 +27,27 @@ class RefreshTokenView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
+    @extend_schema(
+        request=None,
+        responses={
+            200: inline_serializer(
+                name="RefreshSuccessResponse",
+                fields={
+                    "success": serializers.BooleanField(default=True),
+                    "message": serializers.CharField(default="Session refreshed successfully."),
+                },
+            ),
+            401: inline_serializer(
+                name="RefreshErrorResponse",
+                fields={
+                    "success": serializers.BooleanField(default=False),
+                    "message": serializers.CharField(default="Refresh token not found."),
+                },
+            ),
+        },
+        summary="Refresh Session Token",
+        description="Refresh user credentials and cookies using the stored refresh token cookie.",
+    )
     def post(self, request):
         logger.debug("Trying Session Refresh")
         token = request.COOKIES.get(

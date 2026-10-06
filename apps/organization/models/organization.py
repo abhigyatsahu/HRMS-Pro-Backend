@@ -1,11 +1,15 @@
 import uuid
 
 from django.db import models
+from apps.core.models.soft_delete import SoftDeleteModel
 from apps.organization.managers.organization import (
     OrganizationManager,
 )
+from apps.organization.querysets.organization import (
+    OrganizationQuerySet,
+)
 
-class Organization(models.Model):
+class Organization(SoftDeleteModel):
     """
     Represents an HRMS organization/tenant.
     """
@@ -88,8 +92,10 @@ class Organization(models.Model):
     )
 
     objects = OrganizationManager()
+    all_objects = models.Manager.from_queryset(OrganizationQuerySet)()
 
     class Meta:
+        app_label = "organization"
         db_table = "organizations"
         ordering = ["name"]
 
