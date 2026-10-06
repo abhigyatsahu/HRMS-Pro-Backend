@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.querysets.base import BaseQuerySet
+from apps.core.querysets.base import BaseQuerySet
 
 
 class BaseManager(models.Manager.from_queryset(BaseQuerySet)):

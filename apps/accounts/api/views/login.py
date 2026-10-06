@@ -1,8 +1,8 @@
-# api/views/login.py
-
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import serializers
+from drf_spectacular.utils import extend_schema, inline_serializer
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -18,6 +18,20 @@ class LoginView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
+    @extend_schema(
+        request=LoginSerializer,
+        responses={
+            200: inline_serializer(
+                name="LoginSuccessResponse",
+                fields={
+                    "success": serializers.BooleanField(default=True),
+                    "message": serializers.CharField(default="Login successful."),
+                },
+            )
+        },
+        summary="User Login",
+        description="Authenticate a user using credentials. Sets access and refresh tokens in secure cookies.",
+    )
     def post(self, request):
         logger.debug("Processing authentication")
         serializer = LoginSerializer(

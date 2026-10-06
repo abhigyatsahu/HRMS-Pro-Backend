@@ -1,6 +1,7 @@
 # api/serializers/user.py
 
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 
 from ...models import User
 
@@ -26,5 +27,6 @@ class CurrentUserSerializer(
         )
         read_only_fields = fields
 
+    @extend_schema_field(serializers.CharField())
     def get_full_name(self, obj):
-        return obj.get_full_name()
+        return obj.get_full_name()

@@ -4,51 +4,52 @@ from .base import BaseQuerySet
 
 
 class SoftDeleteQuerySet(BaseQuerySet):
-    """
-    QuerySet with soft delete support.
-    """
 
     def deleted(self):
-        """
-        Return deleted records.
-        """
-
         return self.filter(
-            is_deleted=True
+            is_deleted=True,
         )
 
     def not_deleted(self):
-        """
-        Return non-deleted records.
-        """
-
         return self.filter(
-            is_deleted=False
+            is_deleted=False,
         )
 
-    def soft_delete(self):
-        """
-        Soft delete all rows.
-        """
+    def delete(self):
+        now = timezone.now()
 
-        return self.update(
-            is_deleted=True,
-            deleted_at=timezone.now(),
+        update_kwargs = {
+            "is_deleted": True,
+            "deleted_at": now,
+        }
+
+        if hasattr(self.model, "updated_at"):
+            update_kwargs["updated_at"] = now
+
+        rows_updated = self.update(
+            **update_kwargs
         )
+
+        return rows_updated, {
+            self.model._meta.label: rows_updated,
+        }
 
     def restore(self):
-        """
-        Restore deleted rows.
-        """
+        update_kwargs = {
+            "is_deleted": False,
+            "deleted_at": None,
+        }
 
-        return self.update(
-            is_deleted=False,
-            deleted_at=None,
+        if hasattr(self.model, "updated_at"):
+            update_kwargs["updated_at"] = timezone.now()
+
+        rows_updated = self.update(
+            **update_kwargs
         )
 
-    def hard_delete(self):
-        """
-        Permanently delete records.
-        """
+        return rows_updated, {
+            self.model._meta.label: rows_updated,
+        }
 
+    def hard_delete(self):
         return super().delete()

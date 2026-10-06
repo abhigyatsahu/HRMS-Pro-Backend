@@ -1,9 +1,11 @@
 import logging
 
+from markdown_it.presets import default
+
 from .base import *
 from decouple import config, Csv
 
-DEBUG = config("DEBUG", cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 JWT_COOKIE_SECURE = False
 JWT_COOKIE_SAMESITE = "Lax"
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")])

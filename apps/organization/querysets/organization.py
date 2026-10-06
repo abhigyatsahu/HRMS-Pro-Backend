@@ -1,7 +1,8 @@
 from django.db import models
+from apps.core.querysets.soft_delete import SoftDeleteQuerySet
 
 
-class OrganizationQuerySet(models.QuerySet):
+class OrganizationQuerySet(SoftDeleteQuerySet):
     """
     QuerySet for Organization model.
     """

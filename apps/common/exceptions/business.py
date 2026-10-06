@@ -1,12 +1,11 @@
-from .base import CommonException
+from apps.core.exceptions.base import HRMSException
 
 
-class BusinessRuleException(CommonException):
+class BusinessRuleException(HRMSException):
     """
     Raised when a valid operation violates
     an application business rule.
     """
 
-    default_message = "Business rule violated."
-
-    default_code = "business_rule_violation"
+    status_code = 400
+    code = "business_rule"

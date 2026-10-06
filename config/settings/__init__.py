@@ -4,8 +4,8 @@ import os
 env = os.environ.get("DJANGO_ENV", "development").lower()
 
 if env == "production":
-    from .production import *
+    from config.settings.production import *
 elif env == "testing":
-    from .testing import *
+    from config.settings.testing import *
 else:
-    from .development import *
+    from config.settings.development import *

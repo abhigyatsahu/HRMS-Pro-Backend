@@ -2,4 +2,10 @@ from django.apps import AppConfig
 
 
 class CoreConfig(AppConfig):
-    name = "core"
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "apps.core"
+
+    def ready(self):
+        from apps.core.schema import (
+            CookieJWTAuthenticationScheme,
+        )
